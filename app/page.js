@@ -5,9 +5,17 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [mainTask, setMainTask] = useState([]);
+  const [error, setError] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (title.trim() === "" || desc.trim() === "") {
+      setError("Both fields are required!");
+      return;
+    }
+
+    setError("");
     setMainTask([...mainTask, { title, desc }]);
     setTitle("");
     setDesc("");
@@ -64,6 +72,7 @@ export default function Home() {
             <button className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
               Add Task
             </button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
           </form>
           <div className="mt-6">
             <ul>
